@@ -1,0 +1,207 @@
+Code.1:
+import spacy
+from nltk import Tree
+en_nlp=spacy.load('en_core_web_sm') #('en') won't work in windows easily
+doc=en_nlp("The U.S. is ready to engage in talks about North Korea’s nuclear program even as it maintains pressure on Kim Jong Un’s regime, the Washington Post reported, citing an interview with Vice President Mike Pence. Pence and South Korea’s President Moon Jae-in agreed on a post-Olympics strategy during conversations at the Winter Olympics in the South Korean resort of Pyeongchang that Pence dubbed “maximum pressure and engagement at the same time.” Pence spoke in an interview on his way home from the Winter Olympics. “The point is, no pressure comes off until they are actually doing something that the alliance believes represents a meaningful step toward denuclearization,” the Post quoted Pence as saying. “So the maximum pressure campaign is going to continue and intensify. But if you want to talk, we’ll talk.”")
+
+u_sent=next(doc.sents)
+for word in u_sent:
+    print("%s:%s" % (word,word.dep_))
+
+o/p:
+The:det
+U.S.:nsubj
+is:ccomp
+ready:acomp
+to:aux
+engage:xcomp
+in:prep
+talks:pobj
+about:prep
+North:compound
+Korea:poss
+’s:advmod
+nuclear:amod
+program:pobj
+even:advmod
+as:mark
+it:nsubj
+maintains:advcl
+pressure:dobj
+on:prep
+Kim:compound
+Jong:compound
+Un:nmod
+’s:compound
+regime:pobj
+,:punct
+the:det
+Washington:compound
+Post:nsubj
+reported:ROOT
+,:punct
+citing:advcl
+an:det
+interview:dobj
+with:prep
+Vice:compound
+President:compound
+Mike:compound
+Pence:pobj
+.:punct
+
+Code.2:
+asent=''
+apos=''
+entitylist=[]
+for word in u_sent:
+    asent=word
+    apos=word.dep_
+    entitylist.append([asent,apos])
+Code.3:
+entitylist
+o/p:
+[[The, 'det'],
+ [U.S., 'nsubj'],
+ [is, 'ccomp'],
+ [ready, 'acomp'],
+ [to, 'aux'],
+ [engage, 'xcomp'],
+ [in, 'prep'],
+ [talks, 'pobj'],
+ [about, 'prep'],
+ [North, 'compound'],
+ [Korea, 'poss'],
+ [’s, 'advmod'],
+ [nuclear, 'amod'],
+ [program, 'pobj'],
+ [even, 'advmod'],
+ [as, 'mark'],
+ [it, 'nsubj'],
+ [maintains, 'advcl'],
+ [pressure, 'dobj'],
+ [on, 'prep'],
+ [Kim, 'compound'],
+ [Jong, 'compound'],
+ [Un, 'nmod'],
+ [’s, 'compound'],
+ [regime, 'pobj'],
+ [,, 'punct'],
+ [the, 'det'],
+ [Washington, 'compound'],
+ [Post, 'nsubj'],
+ [reported, 'ROOT'],
+ [,, 'punct'],
+ [citing, 'advcl'],
+ [an, 'det'],
+ [interview, 'dobj'],
+ [with, 'prep'],
+ [Vice, 'compound'],
+ [President, 'compound'],
+ [Mike, 'compound'],
+ [Pence, 'pobj'],
+ [., 'punct']]
+Code.4:
+el=len(entitylist) 
+poskeys=['nsubj','pobj','compound','pobj','ROOT','poss','acomp','ccomp','dobj','advcl','xcomp']
+
+a_entities=[]
+for i in range (0,el):
+    if entitylist[i][1] in poskeys:    
+        ewo=entitylist[i][0]
+        a_entities.append(ewo)
+
+a_entities
+  
+o/p:
+[U.S.,
+ is,
+ ready,
+ engage,
+ talks,
+ North,
+ Korea,
+ program,
+ it,
+ maintains,
+ pressure,
+ Kim,
+ Jong,
+ ’s,
+ regime,
+ Washington,
+ Post,
+ reported,
+ citing,
+ interview,
+ Vice,
+ President,
+ Mike,
+ Pence]
+
+Code:
+import spacy
+from nltk import Tree
+en_nlp=spacy.load('en_core_web_sm') #('en') won't work in windows easily
+doc=en_nlp("The U.S. is ready to engage in talks about North Korea’s nuclear program even as it maintains pressure on Kim Jong Un’s regime, the Washington Post reported, citing an interview with Vice President Mike Pence. Pence and South Korea’s President Moon Jae-in agreed on a post-Olympics strategy during conversations at the Winter Olympics in the South Korean resort of Pyeongchang that Pence dubbed “maximum pressure and engagement at the same time.” Pence spoke in an interview on his way home from the Winter Olympics. “The point is, no pressure comes off until they are actually doing something that the alliance believes represents a meaningful step toward denuclearization,” the Post quoted Pence as saying. “So the maximum pressure campaign is going to continue and intensify. But if you want to talk, we’ll talk.”")
+
+u_sent=next(doc.sents)
+for word in u_sent:
+    print("%s:%s" % (word,word.dep_))
+asent=''
+apos=''
+entitylist=[]
+for word in u_sent:
+    asent=word
+    apos=word.dep_
+    entitylist.append([asent,apos])
+el=len(entitylist) 
+poskeys=['nsubj','pobj','compound','pobj','ROOT','poss','acomp','ccomp','dobj','advcl','xcomp']
+
+a_entities=[]
+for i in range (0,el):
+    if entitylist[i][1] in poskeys:    
+        ewo=entitylist[i][0]
+        a_entities.append(ewo)
+
+o/p:
+The:det
+U.S.:nsubj
+is:ccomp
+ready:acomp
+to:aux
+engage:xcomp
+in:prep
+talks:pobj
+about:prep
+North:compound
+Korea:poss
+’s:advmod
+nuclear:amod
+program:pobj
+even:advmod
+as:mark
+it:nsubj
+maintains:advcl
+pressure:dobj
+on:prep
+Kim:compound
+Jong:compound
+Un:nmod
+’s:compound
+regime:pobj
+,:punct
+the:det
+Washington:compound
+Post:nsubj
+reported:ROOT
+,:punct
+citing:advcl
+an:det
+interview:dobj
+with:prep
+Vice:compound
+President:compound
+Mike:compound
+Pence:pobj
+.:punct
